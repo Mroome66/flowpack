@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowPack — Фулфилмент для маркетплейсов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0a0a0f;
+            --color-bg-alt: #12121a;
+            --color-surface: #1a1a25;
+            --color-surface-hover: #242433;
+            --color-primary: #6ee7b7;
+            --color-primary-dark: #34d399;
+            --color-accent: #fbbf24;
+            --color-text: #f1f5f9;
+            --color-text-muted: #94a3b8;
+            --color-border: #2d2d3d;
+            --font-display: 'Unbounded', sans-serif;
+            --font-body: 'Onest', sans-serif;
+            --radius: 16px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(110, 231, 183, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(110, 231, 183, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .gradient-orb {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            background: var(--color-primary);
+            top: -200px;
+            right: -200px;
+        }
+
+        .orb-2 {
+            background: var(--color-accent);
+            bottom: -300px;
+            left: -200px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--color-primary);
+        }
+
+        .header-phone {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .phone-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            color: var(--color-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(110, 231, 183, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--color-border);
+            color: var(--color-text);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .stat-label {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .marketplace-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .marketplace-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .marketplace-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .marketplace-card img {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 0.75rem;
+        }
+
+        .marketplace-card span {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Services Section */
+        .section {
+            position: relative;
+            padding: 6rem 2rem;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(110, 231, 183, 0.1);
+            color: var(--color-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--color-text-muted);
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(110, 231, 183, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-card p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-price {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .service-price small {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--color-text-muted);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: var(--color-bg-alt);
+        }
+
+        .pricing-table {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .pricing-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--color-border);
+            transition: background 0.3s ease;
+        }
+
+        .pricing-row:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-row:hover {
+            background: var(--color-surface-hover);
+        }
+
+        .pricing-row .service-name {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-row .service-name .icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(110, 231, 183, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .pricing-row .price {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* Calculator Section */
+        .calculator-section {
+            background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+        }
+
+        .calculator {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            padding: 3rem;
+        }
+
+        .calculator h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--color-primary);
+        }
+
+        .checkbox-item input {
+            width: auto;
+            accent-color: var(--color-primary);
+        }
+
+        .checkbox-item span {
+            font-size: 0.9rem;
+        }
+
+        .checkbox-item .price-tag {
+            margin-left: auto;
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .calc-result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(110, 231, 183, 0.1), rgba(251, 191, 36, 0.05));
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .calc-result-label {
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .calc-result-value {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .calc-result-value small {
+            font-size: 1.5rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--color-bg-alt);
+        }
+
+        .contact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(110, 231, 183, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-text h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-item-text p {
+            color: var(--color-text-muted);
+            margin-bottom: 0;
+        }
+
+        .contact-form {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+        }
+
+        .contact-form h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form .btn {
+            width: 100%;
+            justify-content: center;
+            padding: 1rem;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid var(--color-border);
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--color-text-muted);
+            margin-top: 1rem;
+            max-width: 300px;
+        }
+
+        .footer-column h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-bottom p {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+
+            .marketplace-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: center;
+            }
+
+            .stat {
+                text-align: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator {
+                padding: 1.5rem;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    </svg>
+                </div>
+                FlowPack
+            </a>
+            <nav>
+                <a href="#services">Услуги</a>
+                <a href="#pricing">Цены</a>
+                <a href="#calculator">Калькулятор</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+            <div class="header-phone">
+                <a href="tel:+79281000008" class="phone-link">+7 (928) 100-00-08</a>
+                <a href="#contact" class="btn btn-primary">Заявка</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text animate-in">
+                <h1>Фулфилмент<br>для <span>маркетплейсов</span></h1>
+                <p>Хранение, упаковка, маркировка и доставка товаров на Wildberries, Ozon, Яндекс Маркет и Мегамаркет. Отгрузим ваш товар уже сегодня.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        <span>Оставить заявку</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#pricing" class="btn btn-outline">Скачать прайс</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">5000+</div>
+                        <div class="stat-label">Отгрузок в месяц</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Довольных клиентов</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Поддержка</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual animate-in delay-2">
+                <div class="marketplace-grid">
+                    <div class="marketplace-card">
+                        <div style="font-size: 2rem;">🟣</div>
+                        <span>Wildberries</span>
+                    </div>
+                    <div class="marketplace-card">
+                        <div style="font-size: 2rem;">🔵</div>
+                        <span>Ozon</span>
+                    </div>
+                    <div class="marketplace-card">
+                        <div style="font-size: 2rem;">🟡</div>
+                        <span>Яндекс Маркет</span>
+                    </div>
+                    <div class="marketplace-card">
+                        <div style="font-size: 2rem;">🟢</div>
+                        <span>Мегамаркет</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="section-header">
+            <span class="section-tag">Наши услуги</span>
+            <h2>Полный цикл фулфилмента</h2>
+            <p>Мы берём на себя всю рутину по подготовке и отгрузке товаров, чтобы вы могли сосредоточиться на развитии бизнеса</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📦</div>
+                <h3>Хранение товаров</h3>
+                <p>Безопасное хранение на современном складе с контролем температуры и влажности</p>
+                <div class="service-price">от 7 ₽ <small>/ единица в день</small></div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎁</div>
+                <h3>Упаковка товаров</h3>
+                <p>Качественная упаковка в соответствии с требованиями маркетплейсов</p>
+                <div class="service-price">от 10 ₽ <small>/ единица</small></div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏷️</div>
+                <h3>Маркировка</h3>
+                <p>Печать и наклейка штрихкодов, этикеток и честных знаков</p>
+                <div class="service-price">от 10 ₽ <small>/ единица</small></div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🚚</div>
+                <h3>Доставка на склады</h3>
+                <p>Отгрузка на все склады маркетплейсов по всей России</p>
+                <div class="service-price">от 55 ₽ <small>/ единица</small></div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛒</div>
+                <h3>Забор товара</h3>
+                <p>Заберём товар от вашего поставщика или с производства</p>
+                <div class="service-price">от 55 ₽ <small>/ единица</small></div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛍️</div>
+                <h3>Закупка (Байер)</h3>
+                <p>Поможем с закупкой товаров у поставщиков в Китае и России</p>
+                <div class="service-price">от 5% <small>от стоимости</small></div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📸</div>
+                <h3>Фотосессия товаров</h3>
+                <p>Профессиональные фото для карточек товаров</p>
+                <div class="service-price">от 300 ₽ <small>/ товар</small></div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>Инфографика</h3>
+                <p>Создание продающей инфографики для карточек товаров</p>
+                <div class="service-price">от 700 ₽ <small>/ карточка</small></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section pricing-section" id="pricing">
+        <div class="section-header">
+            <span class="section-tag">Прайс-лист</span>
+            <h2>Прозрачные цены</h2>
+            <p>Никаких скрытых комиссий — платите только за фактически оказанные услуги</p>
+        </div>
+        <div class="pricing-table">
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">📦</span>
+                    Хранение товара
+                </div>
+                <div class="price">от 7 ₽/день</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">🎁</span>
+                    БОПП пакет
+                </div>
+                <div class="price">13 ₽</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">📮</span>
+                    Курьерский пакет
+                </div>
+                <div class="price">15 ₽</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">🔲</span>
+                    ZIP пакет
+                </div>
+                <div class="price">20 ₽</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">📦</span>
+                    Картонная коробка
+                </div>
+                <div class="price">30 ₽</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">🏷️</span>
+                    Ординарная маркировка
+                </div>
+                <div class="price">5 ₽</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">🏷️</span>
+                    Двойная маркировка
+                </div>
+                <div class="price">10 ₽</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">✂️</span>
+                    Обрезка ниток
+                </div>
+                <div class="price">10 ₽</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">🎀</span>
+                    Вложение вкладыша/подарка
+                </div>
+                <div class="price">5 ₽</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">🚛</span>
+                    Отгрузка Москва/МО (паллета)
+                </div>
+                <div class="price">7 000 ₽</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">🚛</span>
+                    Отгрузка СПБ (паллета)
+                </div>
+                <div class="price">9 000 ₽</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">
+                    <span class="icon">🚛</span>
+                    Отгрузка Казань (паллета)
+                </div>
+                <div class="price">9 500 ₽</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="section calculator-section" id="calculator">
+        <div class="section-header">
+            <span class="section-tag">Калькулятор</span>
+            <h2>Рассчитайте стоимость</h2>
+            <p>Узнайте примерную стоимость фулфилмента за 2 минуты</p>
+        </div>
+        <div class="calculator">
+            <form id="calcForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Наименование товара</label>
+                        <input type="text" id="calcProduct" placeholder="Например: Футболка мужская">
+                    </div>
+                    <div class="form-group">
+                        <label>Количество единиц</label>
+                        <input type="number" id="quantity" placeholder="100" min="1" value="100">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Размеры товара (Ш×В×Д, см)</label>
+                    <input type="text" id="calcSize" placeholder="Например: 30×20×5">
+                </div>
+                <div class="form-group">
+                    <label>Выберите услуги</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-price="13" data-name="БОПП пакет" checked>
+                            <span>БОПП пакет</span>
+                            <span class="price-tag">13 ₽</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-price="5" data-name="Маркировка" checked>
+                            <span>Маркировка</span>
+                            <span class="price-tag">5 ₽</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-price="7" data-name="Хранение (7 дней)">
+                            <span>Хранение (7 дней)</span>
+                            <span class="price-tag">7 ₽</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-price="10" data-name="Обрезка ниток">
+                            <span>Обрезка ниток</span>
+                            <span class="price-tag">10 ₽</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-price="5" data-name="Вложение вкладыша">
+                            <span>Вложение вкладыша</span>
+                            <span class="price-tag">5 ₽</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" data-price="15" data-name="Стрейч плёнка">
+                            <span>Стрейч плёнка</span>
+                            <span class="price-tag">15 ₽</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Направление отгрузки</label>
+                    <select id="delivery">
+                        <option value="0">Самовывоз</option>
+                        <option value="7000" selected>Москва/МО (паллета) — 7 000 ₽</option>
+                        <option value="9000">Санкт-Петербург (паллета) — 9 000 ₽</option>
+                        <option value="9500">Казань (паллета) — 9 500 ₽</option>
+                        <option value="10000">Краснодар (паллета) — 10 000 ₽</option>
+                        <option value="10000">Екатеринбург (паллета) — 10 000 ₽</option>
+                    </select>
+                </div>
+                <div class="calc-result">
+                    <div class="calc-result-label">Примерная стоимость</div>
+                    <div class="calc-result-value" id="totalPrice">8 800 <small>₽</small></div>
+                </div>
+                <div class="form-row" style="margin-top: 1.5rem;">
+                    <div class="form-group">
+                        <label>Ваше имя</label>
+                        <input type="text" id="calcName" placeholder="Иван Иванов">
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон</label>
+                        <input type="tel" id="calcPhone" placeholder="+7 (___) ___-__-__" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                    Отправить заявку
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Остались вопросы?</h3>
+                <p>Оставьте заявку, и мы свяжемся с вами в течение 15 минут для бесплатной консультации</p>
+                <div class="contact-item">
+                    <div class="contact-item-icon">📞</div>
+                    <div class="contact-item-text">
+                        <h4>Телефон</h4>
+                        <p>+7 (928) 100-00-08</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">⏰</div>
+                    <div class="contact-item-text">
+                        <h4>Режим работы</h4>
+                        <p>с 9:00 до 22:00 без выходных</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">📍</div>
+                    <div class="contact-item-text">
+                        <h4>Адрес склада</h4>
+                        <p>Московская область, г. Дзержинский,<br>ул. Энергетиков 30с5</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">✉️</div>
+                    <div class="contact-item-text">
+                        <h4>Email</h4>
+                        <p>info@flowpack.ru</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Оставить заявку</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label>Ваше имя</label>
+                        <input type="text" id="contactName" placeholder="Иван Иванов" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон</label>
+                        <input type="tel" id="contactPhone" placeholder="+7 (___) ___-__-__" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="contactEmail" placeholder="example@mail.ru">
+                    </div>
+                    <div class="form-group">
+                        <label>Комментарий</label>
+                        <input type="text" id="contactComment" placeholder="Расскажите о вашем товаре">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="contactBtn">
+                        Отправить заявку
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            </svg>
+                        </div>
+                        FlowPack
+                    </a>
+                    <p>Профессиональный фулфилмент для маркетплейсов. Храним, упаковываем, отгружаем.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Маркетплейсы</h4>
+                    <ul>
+                        <li><a href="#">Wildberries</a></li>
+                        <li><a href="#">Ozon</a></li>
+                        <li><a href="#">Яндекс Маркет</a></li>
+                        <li><a href="#">Мегамаркет</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Услуги</h4>
+                    <ul>
+                        <li><a href="#">Хранение</a></li>
+                        <li><a href="#">Упаковка</a></li>
+                        <li><a href="#">Маркировка</a></li>
+                        <li><a href="#">Доставка</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Компания</h4>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#pricing">Цены</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                        <li><a href="#">Политика</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 FlowPack. Все права защищены.</p>
+                <div class="social-links">
+                    <a href="#" title="Telegram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.141.121.099.154.232.17.325.015.093.034.305.019.471z"/>
+                        </svg>
+                    </a>
+                    <a href="#" title="WhatsApp">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                    </a>
+                    <a href="#" title="VK">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4 8.57 4 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Calculator functionality
+        const calcForm = document.getElementById('calcForm');
+        const quantity = document.getElementById('quantity');
+        const delivery = document.getElementById('delivery');
+        const checkboxes = document.querySelectorAll('.checkbox-item input');
+        const totalPrice = document.getElementById('totalPrice');
+
+        function calculateTotal() {
+            let total = 0;
+            const qty = parseInt(quantity.value) || 0;
+            
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseInt(cb.dataset.price) * qty;
+                }
+            });
+            
+            total += parseInt(delivery.value) || 0;
+            
+            totalPrice.innerHTML = total.toLocaleString('ru-RU') + ' <small>₽</small>';
+        }
+
+        quantity.addEventListener('input', calculateTotal);
+        delivery.addEventListener('change', calculateTotal);
+        checkboxes.forEach(cb => cb.addEventListener('change', calculateTotal));
+
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.background = 'rgba(10, 10, 15, 0.95)';
+            } else {
+                header.style.background = 'rgba(10, 10, 15, 0.8)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
+
