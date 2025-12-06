@@ -127,7 +127,6 @@
             width: 40px;
             height: 40px;
             object-fit: contain;
-            filter: invert(1);
         }
 
         nav {
@@ -284,19 +283,16 @@
             border-radius: var(--radius);
             padding: 2rem;
             text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .marketplace-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--color-primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .marketplace-card img {
-            width: 48px;
-            height: 48px;
+            width: 64px;
+            height: 64px;
             margin-bottom: 0.75rem;
+            object-fit: contain;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .marketplace-card span {
@@ -903,7 +899,7 @@
     <header>
         <div class="header-content">
             <a href="#" class="logo">
-                <img src="logo.jpg" alt="GREPAK" class="logo-img">
+                <img src="logos/logo_white.png" alt="GREPAK" class="logo-img">
                 GREPAK
             </a>
             <nav>
@@ -913,7 +909,7 @@
                 <a href="#contact">Контакты</a>
             </nav>
             <div class="header-phone">
-                <a href="tel:+79281000008" class="phone-link">+7 (928) 100-00-08</a>
+                <a href="tel:+79281000008" class="phone-link">+7 (980) 060-06-33</a>
                 <a href="#contact" class="btn btn-primary">Заявка</a>
             </div>
             <button class="mobile-menu-btn">☰</button>
@@ -953,19 +949,19 @@
             <div class="hero-visual animate-in delay-2">
                 <div class="marketplace-grid">
                     <div class="marketplace-card">
-                        <div style="font-size: 2rem;">🟣</div>
+                        <img src="logos/wildberries.png" alt="Wildberries">
                         <span>Wildberries</span>
                     </div>
                     <div class="marketplace-card">
-                        <div style="font-size: 2rem;">🔵</div>
+                        <img src="logos/ozon.png" alt="Ozon">
                         <span>Ozon</span>
                     </div>
                     <div class="marketplace-card">
-                        <div style="font-size: 2rem;">🟡</div>
+                        <img src="logos/yandex_market.png" alt="Яндекс Маркет">
                         <span>Яндекс Маркет</span>
                     </div>
                     <div class="marketplace-card">
-                        <div style="font-size: 2rem;">🟢</div>
+                        <img src="logos/megamarket.png" alt="Мегамаркет">
                         <span>Мегамаркет</span>
                     </div>
                 </div>
@@ -1012,7 +1008,7 @@
                 <div class="service-price">от 5 ₽ <small>/ шт</small></div>
             </div>
             <div class="service-card">
-                <div class="service-icon">🎯</div>
+                <div class="service-icon">🧱</div>
                 <h3>Паллетирование</h3>
                 <p>Сбор заказа на паллет с обмоткой стрейч пленкой</p>
                 <div class="service-price">600 ₽ <small>/ паллета</small></div>
@@ -1060,7 +1056,7 @@
             <div class="pricing-table">
                 <div class="pricing-row">
                     <div class="service-name">
-                        <span class="icon">📦</span>
+                        <span class="icon">🧰</span>
                         Ручная выгрузка (товар в мешках или коробках)
                     </div>
                     <div class="price">от 200 ₽/м³</div>
@@ -1075,7 +1071,7 @@
                 <div class="pricing-row">
                     <div class="service-name">
                         <span class="icon">📋</span>
-                        Приемка сортировка (по артикулу, цвету, размеру)
+                        Приемка и сортировка (по артикулу, цвету, размеру)
                     </div>
                     <div class="price">от 3 ₽/шт</div>
                 </div>
@@ -1091,7 +1087,7 @@
                         <span class="icon">✂️</span>
                         Проверка на брак по сложному ТЗ (обрезка ниток и др.)
                     </div>
-                    <div class="price">обсуждается</div>
+                    <div class="price">договорная</div>
                 </div>
                 <div class="pricing-row">
                     <div class="service-name">
@@ -1102,14 +1098,14 @@
                 </div>
                 <div class="pricing-row">
                     <div class="service-name">
-                        <span class="icon">🎁</span>
+                        <span class="icon">🛍️</span>
                         Упаковка в пакет
                     </div>
                     <div class="price">от 5 ₽</div>
                 </div>
                 <div class="pricing-row">
                     <div class="service-name">
-                        <span class="icon">📦</span>
+                        <span class="icon">🎁</span>
                         Упаковка в индивидуальную коробку
                     </div>
                     <div class="price">от 7 ₽</div>
@@ -1123,14 +1119,14 @@
                 </div>
                 <div class="pricing-row">
                     <div class="service-name">
-                        <span class="icon">📦</span>
+                        <span class="icon">🗳️</span>
                         Стоимость короба 60×40×40
                     </div>
                     <div class="price">80 ₽</div>
                 </div>
                 <div class="pricing-row">
                     <div class="service-name">
-                        <span class="icon">🎯</span>
+                        <span class="icon">🧱</span>
                         Сбор заказа на паллет и паллетирование
                     </div>
                     <div class="price">600 ₽</div>
@@ -1386,7 +1382,7 @@
             <div class="footer-top">
                 <div class="footer-brand">
                     <a href="#" class="logo">
-                        <img src="logo.jpg" alt="GREPAK" class="logo-img">
+                        <img src="logos/logo_white.png" alt="GREPAK" class="logo-img">
                         GREPAK
                     </a>
                     <p>Профессиональный фулфилмент для маркетплейсов. Храним, упаковываем, отгружаем.</p>
@@ -1420,7 +1416,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2024 GREPAK. Все права защищены.</p>
+                <p>© 2025 GREPAK. Все права защищены.</p>
                 <div class="social-links">
                     <a href="https://t.me/grepak" target="_blank" title="Telegram">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
