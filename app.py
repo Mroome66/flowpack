@@ -6,25 +6,18 @@ from flask import Flask, request, jsonify, send_from_directory
 import requests
 import os
 from datetime import datetime
+from dotenv import load_dotenv, dotenv_values
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 
-# ============================================
-# НАСТРОЙКИ TELEGRAM - ЗАМЕНИТЕ НА СВОИ!
-# ============================================
-# 1. Создайте бота: напишите @BotFather в Telegram, отправьте /newbot
-# 2. Скопируйте токен бота сюда:
-TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '8377802007:AAHn0zTCjtGvcQfnv-9UwfwcgQ6Lb07oMqI')
+load_dotenv()
 
-# 3. Узнайте свой chat_id: напишите боту @userinfobot или @getmyid_bot
-# 4. Вставьте ваш chat_id сюда:
-TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', '5594832715')
-# ============================================
-
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
 def send_telegram_message(message: str) -> bool:
     """Отправляет сообщение в Telegram"""
-    if TELEGRAM_BOT_TOKEN == 'YOUR_BOT_TOKEN_HERE':
+    if TELEGRAM_BOT_TOKEN == None:
         print("⚠️  Telegram не настроен! Установите TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID")
         print(f"Сообщение которое должно было уйти:\n{message}")
         return False
@@ -79,8 +72,7 @@ def contact_form():
     if success:
         return jsonify({'success': True, 'message': 'Заявка отправлена!'})
     else:
-        # Даже если Telegram не настроен, говорим что всё ок (для тестирования)
-        return jsonify({'success': True, 'message': 'Заявка принята!'})
+        return jsonify({'success': False, 'message': 'Ошибка обработки заявки!'})
 
 
 @app.route('/api/callback', methods=['POST'])
@@ -103,8 +95,11 @@ def callback_form():
 """
     
     success = send_telegram_message(message)
-    
-    return jsonify({'success': True, 'message': 'Мы вам перезвоним!'})
+
+    if success:
+        return jsonify({'success': True, 'message': 'Мы Вам перезвоним!'})
+    else:
+        return jsonify({'success': False, 'message': 'Ошибка обработки заявки!'})
 
 
 @app.route('/api/calculator', methods=['POST'])
@@ -141,7 +136,10 @@ def calculator_form():
     
     success = send_telegram_message(message)
     
-    return jsonify({'success': True, 'message': 'Заявка отправлена!'})
+    if success:
+        return jsonify({'success': True, 'message': 'Заявка отправлена!'})
+    else:
+        return jsonify({'success': False, 'message': 'Ошибка обработки заявки!'})
 
 
 # Для статических файлов (CSS, JS, изображения)
@@ -153,18 +151,14 @@ def static_files(path):
 if __name__ == '__main__':
     print("""
 ╔═══════════════════════════════════════════════════════════╗
-║           🚀 FlowPack Server Started!                     ║
+║                FlowPack Server Started!                   ║
 ╠═══════════════════════════════════════════════════════════╣
 ║  Сайт доступен: http://localhost:5000                     ║
 ║                                                           ║
 ║  Для настройки Telegram:                                  ║
-║  1. Создайте бота через @BotFather                        ║
-║  2. Установите переменные окружения:                      ║
-║     export TELEGRAM_BOT_TOKEN="ваш_токен"                 ║
-║     export TELEGRAM_CHAT_ID="ваш_chat_id"                 ║
-║                                                           ║
-║  Или измените значения в app.py                           ║
+║  1. Создайте бота через @BotFather;                       ║
+║  2. Установите переменные окружения в файле .env          ║
+║     в корневом каталоге.                                  ║                         ║
 ╚═══════════════════════════════════════════════════════════╝
 """)
     app.run(host='0.0.0.0', port=5000, debug=True)
-
