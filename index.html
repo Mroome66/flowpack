@@ -492,6 +492,7 @@
         /* Calculator Section */
         .calculator-section {
             background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+            padding-bottom: 3rem;
         }
 
         .calculator {
@@ -609,6 +610,88 @@
             font-size: 1.5rem;
         }
 
+        /* Reviews Section */
+        .reviews-section {
+            background: var(--color-bg-alt);
+            padding-top: 3rem;
+        }
+
+        .reviews-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .review-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .review-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid var(--color-border);
+        }
+
+        .review-content {
+            flex: 1;
+        }
+
+        .review-name {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--color-text);
+        }
+
+        .review-role {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .review-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        .review-stars {
+            display: flex;
+            gap: 0.25rem;
+            color: #fbbf24;
+        }
+
+        .review-text {
+            color: var(--color-text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .reviews-subtitle {
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         /* Contact Section */
         .contact-section {
             background: var(--color-bg-alt);
@@ -697,9 +780,14 @@
 
         .footer-top {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr auto 1fr auto 1fr;
             gap: 3rem;
             margin-bottom: 3rem;
+        }
+
+        .footer-spacer {
+            /* Пустой элемент для центрирования колонки Услуги */
+            min-width: 0;
         }
 
         .footer-brand p {
@@ -721,6 +809,7 @@
 
         .footer-column ul li {
             margin-bottom: 0.5rem;
+            color: var(--color-text-muted);
         }
 
         .footer-column ul li a {
@@ -808,8 +897,16 @@
                 grid-template-columns: 1fr;
             }
 
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
             .footer-top {
                 grid-template-columns: 1fr 1fr;
+            }
+            
+            .footer-spacer {
+                display: none;
             }
         }
 
@@ -859,11 +956,28 @@
             .footer-top {
                 grid-template-columns: 1fr;
             }
+            
+            .footer-spacer {
+                display: none;
+            }
 
             .footer-bottom {
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .review-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .review-avatar {
+                margin: 0 auto;
             }
         }
 
@@ -887,9 +1001,76 @@
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
+
+        /* Modal Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-popup {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-popup h3 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--color-text);
+            line-height: 1.3;
+        }
+
+        .modal-popup .btn {
+            margin-top: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
-<body>
+<body id="top">
     <!-- Background Effects -->
     <div class="bg-grid"></div>
     <div class="gradient-orb orb-1"></div>
@@ -898,7 +1079,7 @@
     <!-- Header -->
     <header>
         <div class="header-content">
-            <a href="#" class="logo">
+            <a href="#top" class="logo">
                 <img src="logos/logo_white.png" alt="GREPAK" class="logo-img">
                 GREPAK
             </a>
@@ -907,6 +1088,7 @@
                 <a href="#pricing">Цены</a>
                 <a href="#calculator">Калькулятор</a>
                 <a href="#contact">Контакты</a>
+                <a href="#reviews">Отзывы</a>
             </nav>
             <div class="header-phone">
                 <a href="tel:+79281000008" class="phone-link">+7 (980) 060-06-33</a>
@@ -1311,6 +1493,64 @@
         </div>
     </section>
 
+    <!-- Reviews Section -->
+    <section class="section reviews-section" id="reviews">
+        <div class="section-header">
+            <h2>Отзывы</h2>
+        </div>
+        <p class="reviews-subtitle">Более 200 довольных клиентов - присоединяйтесь!</p>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <img src="avatar/avatar1.jpg" alt="Аватар" class="review-avatar">
+                <div class="review-content">
+                    <div class="review-name">Анна П.</div>
+                    <div class="review-role">Продавец одежды</div>
+                    <div class="review-rating">
+                        <span>5</span>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="review-text">Невероятно довольна сотрудничеством с GREPAK! Профессиональная команда, быстрая обработка заказов и отличная упаковка. Мои товары всегда доходят до клиентов в идеальном состоянии. Особенно впечатлила скорость отгрузки - буквально в день поступления товара. Рекомендую всем продавцам на маркетплейсах!</div>
+                </div>
+            </div>
+            <div class="review-card">
+                <img src="avatar/avatar2.jpg" alt="Аватар" class="review-avatar">
+                <div class="review-content">
+                    <div class="review-name">Дмитрий С.</div>
+                    <div class="review-role">Продавец спортивного инвентаря</div>
+                    <div class="review-rating">
+                        <span>5</span>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="review-text">Работаю с GREPAK уже полгода и не могу нарадоваться! Качество услуг на высшем уровне - маркировка точная, упаковка аккуратная, логистика работает как часы. Сотрудники всегда на связи, быстро решают любые вопросы. Благодаря им я смог масштабировать бизнес и увеличить продажи в 3 раза. Это лучший фулфилмент-центр!</div>
+                </div>
+            </div>
+            <div class="review-card">
+                <img src="avatar/avatar3.jpg" alt="Аватар" class="review-avatar">
+                <div class="review-content">
+                    <div class="review-name">Мария И.</div>
+                    <div class="review-role">Продавец товаров для дома</div>
+                    <div class="review-rating">
+                        <span>5</span>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="review-text">Потрясающий сервис! GREPAK взял на себя всю рутину по обработке товаров, и я наконец-то могу сосредоточиться на развитии бизнеса. Проверка на брак выполняется тщательно, упаковка всегда качественная. Ни разу не было проблем с отгрузками на Wildberries и Ozon. Очень благодарна команде за профессионализм и внимательность!</div>
+                </div>
+            </div>
+            <div class="review-card">
+                <img src="avatar/avatar4.jpg" alt="Аватар" class="review-avatar">
+                <div class="review-content">
+                    <div class="review-name">Сергей К.</div>
+                    <div class="review-role">Продавец бытовой техники</div>
+                    <div class="review-rating">
+                        <span>5</span>
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="review-text">Выбрал GREPAK после долгих поисков надежного партнера, и не ошибся! Цены прозрачные, без скрытых комиссий. Работают 24/7, что очень удобно для моего бизнеса. Товары обрабатываются быстро, все этапы контролируются. Особенно ценю индивидуальный подход и готовность идти навстречу. Отличная команда профессионалов!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section class="section contact-section" id="contact">
         <div class="contact-grid">
@@ -1321,14 +1561,14 @@
                     <div class="contact-item-icon">📞</div>
                     <div class="contact-item-text">
                         <h4>Телефон</h4>
-                        <p>+7 (928) 100-00-08</p>
+                        <p>+7 (980) 060-06-33</p>
                     </div>
                 </div>
                 <div class="contact-item">
                     <div class="contact-item-icon">⏰</div>
                     <div class="contact-item-text">
                         <h4>Режим работы</h4>
-                        <p>с 9:00 до 22:00 без выходных</p>
+                        <p>круглосуточно без выходных</p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -1342,7 +1582,7 @@
                     <div class="contact-item-icon">✉️</div>
                     <div class="contact-item-text">
                         <h4>Email</h4>
-                        <p><a href="mailto:grepak@grepak.ru" style="color: var(--color-text-muted); text-decoration: none;">grepak@grepak.ru</a></p>
+                        <p><a href="mailto:grepak@grepak.net" style="color: var(--color-text-muted); text-decoration: none;">grepak@grepak.net</a></p>
                     </div>
                 </div>
             </div>
@@ -1381,37 +1621,39 @@
         <div class="footer-content">
             <div class="footer-top">
                 <div class="footer-brand">
-                    <a href="#" class="logo">
+                    <div class="logo">
                         <img src="logos/logo_white.png" alt="GREPAK" class="logo-img">
                         GREPAK
-                    </a>
+                    </div>
                     <p>Профессиональный фулфилмент для маркетплейсов. Храним, упаковываем, отгружаем.</p>
                 </div>
                 <div class="footer-column">
                     <h4>Маркетплейсы</h4>
                     <ul>
-                        <li><a href="#">Wildberries</a></li>
-                        <li><a href="#">Ozon</a></li>
-                        <li><a href="#">Яндекс Маркет</a></li>
-                        <li><a href="#">Мегамаркет</a></li>
+                        <li>Wildberries</li>
+                        <li>Ozon</li>
+                        <li>Яндекс Маркет</li>
+                        <li>Мегамаркет</li>
                     </ul>
                 </div>
+                <div class="footer-spacer"></div>
                 <div class="footer-column">
                     <h4>Услуги</h4>
                     <ul>
-                        <li><a href="#">Хранение</a></li>
-                        <li><a href="#">Упаковка</a></li>
-                        <li><a href="#">Маркировка</a></li>
-                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#services">Хранение</a></li>
+                        <li><a href="#services">Упаковка</a></li>
+                        <li><a href="#services">Маркировка</a></li>
+                        <li><a href="#services">Доставка</a></li>
                     </ul>
                 </div>
+                <div class="footer-spacer"></div>
                 <div class="footer-column">
                     <h4>Компания</h4>
                     <ul>
-                        <li><a href="#">О нас</a></li>
+                        <li><a href="#top">О нас</a></li>
                         <li><a href="#pricing">Цены</a></li>
                         <li><a href="#contact">Контакты</a></li>
-                        <li><a href="#">Политика</a></li>
+                        <li><a href="#reviews">Отзывы</a></li>
                     </ul>
                 </div>
             </div>
@@ -1423,20 +1665,28 @@
                             <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.751-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.141.121.099.154.232.17.325.015.093.034.305.019.471z"/>
                         </svg>
                     </a>
-                    <a href="#" title="WhatsApp">
+                    <a href="https://wa.me/79800600633" target="_blank" title="WhatsApp">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                        </svg>
-                    </a>
-                    <a href="#" title="VK">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4 8.57 4 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/>
                         </svg>
                     </a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Modal Popup -->
+    <div class="modal-overlay" id="promoModal">
+        <div class="modal-popup">
+            <h3>Оставьте заявку сейчас и получите первый забор бесплатно!</h3>
+            <a href="#contact" class="btn btn-primary" id="goToContact">
+                Перейти к заявке
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </div>
 
     <script>
         // Calculator functionality
@@ -1608,6 +1858,63 @@
             }
             
             lastScroll = currentScroll;
+        });
+
+        // Promo Modal Popup
+        const promoModal = document.getElementById('promoModal');
+        const goToContactBtn = document.getElementById('goToContact');
+        const pricingSection = document.getElementById('pricing');
+        const hasSeenModal = localStorage.getItem('hasSeenPromoModal');
+        let hasShownModal = false;
+
+        function showPromoModal() {
+            if (!hasSeenModal && !hasShownModal) {
+                promoModal.classList.add('show');
+                hasShownModal = true;
+                localStorage.setItem('hasSeenPromoModal', 'true');
+            }
+        }
+
+        function closePromoModal() {
+            promoModal.classList.remove('show');
+        }
+
+        function checkScrollToPricing() {
+            if (hasSeenModal || hasShownModal) return;
+            
+            if (pricingSection) {
+                const rect = pricingSection.getBoundingClientRect();
+                // Проверяем, когда раздел pricing появляется в области видимости
+                if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+                    showPromoModal();
+                }
+            }
+        }
+
+        // Отслеживание прокрутки
+        window.addEventListener('scroll', checkScrollToPricing);
+        
+        // Проверка при загрузке страницы (на случай, если пользователь уже прокрутил)
+        window.addEventListener('load', checkScrollToPricing);
+
+        // Закрытие при клике на overlay
+        promoModal.addEventListener('click', function(e) {
+            if (e.target === promoModal) {
+                closePromoModal();
+            }
+        });
+
+        // Переход к контактам при клике на кнопку
+        goToContactBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            closePromoModal();
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         });
     </script>
 </body>
