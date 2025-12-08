@@ -1879,7 +1879,7 @@
                     showNotification('Ошибка отправки. Попробуйте позже.', false);
                 }
             } catch (error) {
-                showNotification('Ошибка соединения. Попробуйте позже.', false);
+                showNotification(`Ошибка ${response.status}. Попробуйте позже.`, false);
             }
         });
 
@@ -1915,7 +1915,7 @@
                     showNotification('Ошибка отправки. Попробуйте позже.', false);
                 }
             } catch (error) {
-                showNotification('Ошибка соединения. Попробуйте позже.', false);
+                showNotification(`Ошибка ${response.status}. Попробуйте позже.`, false);
             }
             
             btn.innerHTML = originalText;
