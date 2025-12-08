@@ -3,14 +3,12 @@ FlowPack - Бэкенд для отправки заявок в Telegram
 """
 
 from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
 import requests
 import os
 from datetime import datetime
 from dotenv import load_dotenv, dotenv_values
 
 app = Flask(__name__, static_folder='.', static_url_path='')
-cors = CORS(app)
 
 load_dotenv()
 
@@ -155,7 +153,7 @@ if __name__ == '__main__':
 ╔═══════════════════════════════════════════════════════════╗
 ║                FlowPack Server Started!                   ║
 ╠═══════════════════════════════════════════════════════════╣
-║  Сайт доступен: http://localhost:5000                     ║
+║  Сайт доступен: https://localhost:5000                    ║
 ║                                                           ║
 ║  Для настройки Telegram:                                  ║
 ║  1. Создайте бота через @BotFather;                       ║
@@ -163,4 +161,4 @@ if __name__ == '__main__':
 ║     в корневом каталоге.                                  ║                         ║
 ╚═══════════════════════════════════════════════════════════╝
 """)
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, ssl_context='adhoc')
