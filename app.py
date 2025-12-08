@@ -3,12 +3,14 @@ FlowPack - Бэкенд для отправки заявок в Telegram
 """
 
 from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
 import requests
 import os
 from datetime import datetime
 from dotenv import load_dotenv, dotenv_values
 
 app = Flask(__name__, static_folder='.', static_url_path='')
+cors = CORS(app)
 
 load_dotenv()
 
